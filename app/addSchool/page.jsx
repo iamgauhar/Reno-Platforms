@@ -83,8 +83,34 @@ const page = () => {
                     <form onSubmit={handleSubmit(onSubmit)} action="" className='grid gap-4'>
                         <div className='font-normal text-[36px] text-[#25335A] leading-[130%] text-center'>Add School Details</div>
                         <FloatingLabelInput placeholder={"Name*"} name={"name"} register={register} errors={errors} />
-                        <FloatingLabelInput placeholder={"Email*"} name={"email"} register={register} errors={errors} />
-                        <FloatingLabelInput placeholder={"Phone*"} name={"phone"} register={register} errors={errors} />
+                        <FloatingLabelInput
+                            placeholder={"Email*"}
+                            name={"email"}
+                            register={register}
+                            errors={errors}
+                            rules={{
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                    message: "Enter a valid email address",
+                                },
+                            }}
+                        />
+
+                        <FloatingLabelInput
+                            placeholder={"Phone*"}
+                            name={"phone"}
+                            register={register}
+                            errors={errors}
+                            rules={{
+                                required: "Phone number is required",
+                                pattern: {
+                                    value: /^[0-9]{10}$/,
+                                    message: "Enter a valid 10-digit phone number",
+                                },
+                            }}
+                        />
+
                         <FloatingLabelInput placeholder={"Address*"} name={"address"} register={register} errors={errors} />
                         <div className='grid grid-cols-2 gap-4'>
                             <FloatingLabelInput placeholder={"City*"} name={"city"} register={register} errors={errors} />
@@ -92,7 +118,7 @@ const page = () => {
                         </div>
                         <FileSelector register={register} errors={errors} />
                         <button type='submit' disabled={loading} className='bg-blue-500 rounded-xl hover:bg-blue-600 text-white h-12 text-center text-[16px] font-medium flex justify-center items-center'>
-                           {loading ? <Loader/> : "Submit"}
+                            {loading ? <Loader /> : "Submit"}
                         </button>
                     </form>
                 </div>

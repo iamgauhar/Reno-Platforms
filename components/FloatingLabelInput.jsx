@@ -1,7 +1,7 @@
 "use client"
 import { useId, useState } from "react";
 
-const FloatingLabelInput = ({ placeholder, value, setValue, customClasses, register, errors, name }) => {
+const FloatingLabelInput = ({ placeholder, value, setValue, customClasses, register, errors, name, rules = {} }) => {
     const inputId = useId();
     const [isFocused, setIsFocused] = useState(false);
     return (
@@ -17,9 +17,9 @@ const FloatingLabelInput = ({ placeholder, value, setValue, customClasses, regis
                 autoComplete="off"
                 className="peer w-full border-[1.2px] border-[#F2F2F2] rounded-lg h-[50px] md:h-[52px] px-4 font-gilroy-medium text-[16px] leading-[130%] text-[#25335A] placeholder-transparent focus:border-[#7C859C] focus:outline-none"
                 onChange={(e) => setValue(e?.target?.value)}
-                {...register(`${name}`, { required: true })}
+                {...register(`${name}`, rules, { required: true })}
             />
-            {errors[name] && <p className="text-red-400 text-[12px] capitalize">{`${name} required`}</p>}
+            {errors[name] && <p className="text-red-400 text-[12px] normal-case">{errors[name].message}</p>}
             <label
                 htmlFor={inputId}
                 className="cursor-text absolute bg-white left-2 top-1/2 -translate-y-1/2 px-1 font-gilroy-medium text-[14px] leading-[100%] text-[#7C859C] transition-all duration-200
